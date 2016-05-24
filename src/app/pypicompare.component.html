@@ -1,3 +1,14 @@
-<h1>
-  {{title}}
-</h1>
+<div *ngIf="pypiPackage">
+<h2>{{pypiPackage.summary}}</h2>
+
+  <h3>{{pypiPackage.description}}</h3>
+
+  Downloads:
+  <ul>
+    <li>last month: {{pypiPackage.downloads.last_month}}</li>
+    <li>last_week: {{pypiPackage.downloads.last_week}}</li>
+    <li>last_day: {{pypiPackage.downloads.last_day}}</li>
+  </ul>
+</div>
+<div *ngIf="!pypiPackage">Fetching data...</div>
+
