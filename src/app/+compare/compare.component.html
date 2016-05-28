@@ -1,5 +1,5 @@
 <div>
-  <div *ngFor="let package of packages">
+  <div *ngFor="let package of packages | async">
     <h2>{{package.summary}}</h2>
 
     <!--<h3>{{pypiPackage.description}}</h3> Downloads:-->

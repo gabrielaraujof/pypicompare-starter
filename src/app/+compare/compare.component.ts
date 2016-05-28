@@ -12,11 +12,13 @@ import { PypiPackage, PypiService } from '../shared';
   providers: [PypiService, ROUTER_PROVIDERS]
 })
 export class CompareComponent {
-  packages: Array<PypiPackage> = new Array<PypiPackage>();
+  packages: Observable<PypiPackage[]>;
 
   constructor(private routeSegment: RouteSegment, private pypiService: PypiService) {
     let selectedPackages: Array<string> = routeSegment.getParam('search').split(',');
-    this.pypiService.getPackages(selectedPackages)
-      .subscribe(pkg => this.packages.push(pkg));
+    if (selectedPackages.length > 3) {
+      selectedPackages = selectedPackages.slice(0, 3);
+    }
+    this.packages = this.pypiService.getPackages(selectedPackages);
   }
 }
