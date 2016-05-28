@@ -1,23 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import {
+  ROUTER_DIRECTIVES,
+  ROUTER_PROVIDERS,
+  Router,
+  Routes
+} from '@angular/router';
 
-import { PypiPackage, PypiService } from './shared';
+import { CompareComponent } from './+compare';
 
 @Component({
   moduleId: module.id,
   selector: 'pypicompare-app',
   templateUrl: 'pypicompare.component.html',
   styleUrls: ['pypicompare.component.css'],
-  providers: [PypiService]
+  directives: [ROUTER_DIRECTIVES],
+  providers: [ROUTER_PROVIDERS]
 })
-export class PypicompareAppComponent implements OnInit {
-  pypiPackage: PypiPackage;
+@Routes([
+  { path: '/compare/:search', component: CompareComponent }
+])
+export class PypicompareAppComponent {
 
-  constructor(private pypiService: PypiService) { }
-
-  ngOnInit() { this.getPackage('pandas'); }
-
-  getPackage(packageName: string) {
-    this.pypiService.getPackage(packageName)
-      .subscribe(p => this.pypiPackage = p);
-  }
+  constructor(private router: Router) { }
 }
