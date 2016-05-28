@@ -23,8 +23,8 @@ export class PypiService {
 
   getPackages(packageNames: Array<string>): Observable<PypiPackage> {
     return packageNames.reduce<Observable<PypiPackage>>(
-      (acumulated, currentValue) => {
-        return acumulated.concat(this.http.get(`${this.pypiUrl}/${currentValue}/json`)
+      (resultObservable, currentName) => {
+        return resultObservable.concat(this.http.get(`${this.pypiUrl}/${currentName}/json`)
           .map((res: Response) => <PypiPackage>res.json().info));
       }, Observable.empty())
       .catch(this.handleError);
